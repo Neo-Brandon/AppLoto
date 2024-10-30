@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,9 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.loto.viewModels.LoteriaViewModel
 
+
 @Composable
 fun LoteriaView(viewModels:LoteriaViewModel){
     var lottonNumbers=viewModels.lotoNumbers.value
+    var isLoding = viewModels.isLoading.value
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -37,6 +40,13 @@ fun LoteriaView(viewModels:LoteriaViewModel){
         else{
             LotteryNumbers(lottonNumbers)
         }
+
+        // Funcion isLoading
+        if(isLoding){
+            CircularProgressIndicator(modifier =
+            Modifier.padding(top = 16.dp))
+        }
+
         Button(onClick = {viewModels.generateLotoNumbers()}) {
             Text(text="Generar", fontSize = 20.sp,
                 fontWeight = FontWeight.Bold)
